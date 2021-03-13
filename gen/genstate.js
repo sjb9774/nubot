@@ -37,14 +37,14 @@ const VALID_GENERATIONS = [
     "lets-go-eevee",
     "sword",
     "shield",
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8"
 ];
 
 function getGenState(channelName) {
@@ -60,7 +60,7 @@ function setGenState(channelName, gen) {
     if (VALID_GENERATIONS.indexOf(gen.toLowerCase()) === -1) {
         return false;
     }
-    
+
     let stateJSON = {};
     if (fs.existsSync(STORAGE_PATH)) {
         const stateData = fs.readFileSync(STORAGE_PATH);
