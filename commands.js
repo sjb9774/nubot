@@ -94,7 +94,9 @@ class CommandManager {
             return;
         }
         currentMessage = context;
+        // add this to the normal context object and alias for intuitive use
         currentMessage.target = target;
+        currentMessage.channel = target;
         this.consume(msg);
     }
 }
