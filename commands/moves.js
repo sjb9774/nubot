@@ -1,4 +1,6 @@
 const Pokedex = require('pokedex-promise-v2');
+const genstate = require('../gen/genstate.js');
+const cmd = require('./../commands.js');
 
 function romanize (num) {
     if (isNaN(num))
@@ -65,7 +67,10 @@ function execute(pokemon, genArg) {
     if (!pokemon) {
         return 'Usage: To get the levels at which Bulbasaur learns moves in Gen 3: "!moves Bulbasaur +3" or "!moves Bulbasaur +firered"'
     }
-    const genFilter = genArg.slice(1);
+    const genFilter = genArg ? genArg.slice(1) : genstate.get(cmd.getCurrentMessageContext().channel);
+    if (!genFilter) {
+      return "Must provide generation filter or set one separately ('!setgen firered' or '!moves bulbasaur +leafgreen'";
+    }
     return getPokemonMoves(pokemon, genFilter).then((data) => {
         const moveLevelList = [...data];
         if (moveLevelList.length === 0) {
