@@ -1,0 +1,114 @@
+class BotCommand {
+    constructor(executeFunction) {
+        this.executeFunction = executeFunction;
+    }
+
+    execute(command, ...rest) {
+        return this.executeFunction(...rest);
+    }
+}
+
+
+var currentMessage = {
+    channel: null,
+    target: null,
+    user: null,
+    rawMessage: null
+}
+
+
+class CommandManager {
+
+    constructor() {
+        this.commands = [];
+        this.resultHandler = (x) => x;
+    }
+
+    register(command, identifier, tags=[]) {
+        this.commands.push({
+           command: command,
+           identifier: identifier,
+           tags: tags
+        });
+        return true;
+    }
+
+    unregister(tag) {
+        const matchingIndex = this.commands.reduce((commandData, currentValue, index) => {
+            if (currentValue !== -1) {
+                return currentValue;
+            }
+            if (commandData.tags.indexOf(tag) !== -1) {
+                return index;
+            }
+            return -1;
+        }, -1);
+
+        if (matchingIndex !== -1) {
+            this.commands.splice(matchingIndex, 1);
+            return true;
+        }
+        return false;
+    }
+
+    setResultHandler(handler) {
+        this.resultHandler = handler;
+    }
+
+    dispatch(commandMessage) {
+        this.commands.forEach((commandData) => {
+            if (this.identify(commandMessage, commandData)) {
+                const args = this.parseArgs(commandMessage);
+                const result = commandData.command.execute(...args);
+                this.resultHandler(result, commandMessage, commandData);
+            }
+        });
+    }
+
+    identify(commandMessage, commandData) {
+        if (typeof commandData.identifier === "function") {
+            return commandData.identifier(commandMessage);
+        }
+        const firstPiece = commandMessage.split(' ')[0].trim();
+        return firstPiece === commandData.identifier;
+    }
+
+    parseArgs(message) {
+        return message.split(' ');
+    }
+
+    messageMatchesAnyCommand(message) {
+        return this.commands.reduce((commandData, currentValue) => {
+            return this.identify(message, commandData) || currentValue;
+        }, false);
+    }
+
+    consume(message) {
+        return this.dispatch(message);
+    }
+
+    onMessage(target, context, msg, self) {
+        // console.log(`context: ${JSON.stringify(context)}`);
+        // console.log(`msg: ${msg}`);
+        if (self) {
+            return;
+        }
+        currentMessage = context;
+        currentMessage.target = target;
+        this.consume(msg);
+    }
+}
+
+manager = new CommandManager();
+module.exports = {
+    manager: manager,
+    createCommand: (executeFunction, invoker, tags=[]) => {
+        const cmd = new BotCommand(executeFunction);
+        return manager.register(cmd, invoker, tags);
+    },
+    getCurrentMessageContext: () => {
+        return currentMessage;
+    }
+}
+
+

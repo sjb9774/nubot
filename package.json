@@ -1,10 +1,11 @@
 {
   "name": "nubotthenummy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A simple bot to help out with some ironmon run info over at NumotTheNummy's channel.",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node bot.js",
+    "test": "node tester.js"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
