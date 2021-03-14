@@ -1,13 +1,6 @@
 require('dotenv').config();
 const manager = require('./cmdsetup.js');
 
-
-
-process.on('unhandledRejection', error => {
-  // Will print "unhandledRejection err is not defined"
-  console.log('unhandledRejection', "TEST");
-});
-
 var args = process.argv.slice(2);
 const rawMsg = args.join(' ');
 
