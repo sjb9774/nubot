@@ -13,5 +13,6 @@ function execute(generation) {
 module.exports = {
     executeFunction: execute,
     invoker: '!setgen',
+    permission: cmd.permissions.BROADCASTER,
     tags: ["setgen", "gen"]
 }

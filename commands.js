@@ -97,7 +97,36 @@ class CommandManager {
         // add this to the normal context object and alias for intuitive use
         currentMessage.target = target;
         currentMessage.channel = target;
-        this.consume(msg);
+        try {
+            this.consume(msg);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}
+
+const messageContext = () => {
+    // see onMessage method for where this populated
+    return currentMessage;
+}
+
+COMMAND_PERMISSIONS = {
+    BROADCASTER: () => {
+        const ctx = messageContext();
+        return `#${ctx.username.toLowerCase()}` === `${ctx.channel}`;
+    },
+    MOD: () => {
+        return COMMAND_PERMISSIONS.NON_BROADCASTER_MOD() || COMMAND_PERMISSIONS.BROADCASTER();
+    },
+    NON_BROADCASTER_MOD: () => {
+        const ctx = messageContext();
+        return ctx["user-type"] === "mod";
+    },
+    ALL: () => {
+        return true;
+    },
+    NONE: () => {
+        return false;
     }
 }
 
@@ -108,9 +137,8 @@ module.exports = {
         const cmd = new BotCommand(executeFunction);
         return manager.register(cmd, invoker, tags);
     },
-    getCurrentMessageContext: () => {
-        return currentMessage;
-    }
+    getCurrentMessageContext: messageContext,
+    permissions: COMMAND_PERMISSIONS
 }
 
 
