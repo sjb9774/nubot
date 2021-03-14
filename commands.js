@@ -140,5 +140,3 @@ module.exports = {
     getCurrentMessageContext: messageContext,
     permissions: COMMAND_PERMISSIONS
 }
-
-
