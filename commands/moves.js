@@ -1,6 +1,7 @@
 const Pokedex = require('pokedex-promise-v2');
 const genstate = require('../gen/genstate.js');
 const cmd = require('./../commands.js');
+const genhelper = require('./../gen/gencommandhelper.js');
 
 function romanize (num) {
     if (isNaN(num))
@@ -87,5 +88,6 @@ function execute(pokemon, genArg) {
 module.exports = {
     executeFunction: execute,
     invoker: '!moves',
-    tags: ["moves"]
+    tags: ["moves"],
+    argResolver: genhelper.pokemonAndGenFilterParse
 }

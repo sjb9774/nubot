@@ -16,7 +16,10 @@ fs.readdirSync('./commands/').forEach((file) => {
     }, false);
     if (!isDisabled) {
         const permFunction = cmd.permission || commands.permissions.ALL;
+        const defaultResolver = (...x) => x;
+        const argResolver = cmd.argResolver || defaultResolver;
         const wrappedExecute = (...args) => {
+            args = argResolver(...args);
             if (permFunction(...args)) {
                 return cmd.executeFunction(...args);
             }
