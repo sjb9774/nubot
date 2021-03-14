@@ -18,7 +18,7 @@ manager.manager.setResultHandler((result) => {
 
 
 mockParams = {
-  target: process.env.CLI_CHANNEL || "CLI",
+  target: process.env.CLI_CHANNEL || "#CLI",
   context: {
     "user-type": process.env.CLI_USER_TYPE || "user",
     "username": process.env.CLI_USER || "CLI_USER"

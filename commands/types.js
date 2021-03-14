@@ -10,7 +10,7 @@ function capitalize(str) {
 function execute(pokemon, genFilter) {
   var dex = new Pokedex();
   return dex.getPokemonByName(pokemon.toLowerCase()).then((response) => {
-    // does this pokemon even exist in our specified gen? if not, just give the most recent typing
+    // does this pokemon even exist in our specified gen? if not, just assume we want the most recent typing
     const existsInGen = response.game_indices.reduce((currentValue, gi) => {
       return currentValue || gi.version.name === genFilter;
     }, false);
