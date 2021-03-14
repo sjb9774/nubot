@@ -2,9 +2,8 @@
 
 For ease of use in ironmon runs
 
-Currently only support 3 commands:
-
-* !bst pokemonName spits out the combined Base Stat Total of pokemonName.
+## Commands
+* !bst `<pokemonName>` spits out the combined Base Stat Total of pokemonName.
   * Currently works with multi-word names (looking at you mr. mime)
   * Need to fix unicode support for the nidorans and flabebe (currently I've added entries with non unicode versions of the names aka nidoran male vs nidoran female. As the db fills out with more info, however, this will be made more robust with multiple accepted keys for a single entry)
 
@@ -12,16 +11,34 @@ Currently only support 3 commands:
   * In NumotTheNummy's channel it's also the 3rd bot to respond to this command so lol.
 
 * !types Returns a given pokemon's types
+  * Uses a specified generation filter if given (`!types Clefable +omega-ruby`) or uses the value set by `!setgen` otherwise
+
+* !setgen `<game>`
+  * Sets the default generation for commands that rely on a specified generation to make sense
+    * Sets the value on a per-channel basis
+    * Currently restrcited to mods and broadcasters
+  * List of valid `<game>` values are available in gen/genstate.js
+  * Current gen-requiring commands
+    * !moves
+    * !types
+
+* !getgen
+  * Returns the default generation set by `!setgen` for the channel
 
 * !moves Returns the levels at which a given pokemon learns moves for a given game
-  * Usage: To get the levels at which Bulbasaur learns moves in Gen 1 Red: "!moves Bulbasaur +red"
+  * Uses a specified generation filter if given (`!moves Blaziken +omega-ruby`) or uses the value set by `!setgen` otherwise
   * Uses pokeapi.co for data
 
 Testing
 
-* You can use the tester.js file to interact with the bot's logic as through the command line
-  * `$ tester.js '!types Vileplume'`
+* You can use the test script to interact with the bot's logic as through the command line
+  * Note that for bash you must use single quotes for strings using `!<text>` patterns otherwise it will be interpreted as a bash event
+  * `$ npm test '!types Vileplume'`
   * `>> Vileplume is Grass and Poison`
+  * Supports environment variables to mimic important data
+    * `CLI_USER_TYPE` defaults to `"user"` but can be set to `"mod"` to execute mod-only commands
+    * `CLU_USERNAME` defaults to `"CLI_USER"` but can be set to any value; most often used to mimic broadcaster privileges by matching the channel name
+    * `CLI_CHANNEL` defaults to an arbitrary value of `"#CLI"`, otherwise can be used to get channel-specific information to in combination with `CLI_USERNAME` to mimic broadcaster privileges
 
 Planned additions
 
