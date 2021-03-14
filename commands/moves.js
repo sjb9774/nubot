@@ -37,38 +37,23 @@ function getPokemonMoveLevelList(pokemonName, allowedVersionGroups) {
     var dex = new Pokedex();
     // transform so it's understood by the API appropriately
     var pokemonName = pokemonName.replace('.', '').replace(' ', '-');
-    // was a numeric gen specified?
-    if (Number.isInteger(parseInt(genFilter))) {
-      // convert gen # to lowercase Roman numerals since that's what the API uses
-      var numeralString = romanize(genFilter).toLowerCase();
-  
-      return dex.getGenerationByName(`generation-${numeralString}`).then(function (response) {
-        // version groups are the logical groupings of games that make up the generation
-        // eg gen 1 breaks down to version groups "red-blue" and "yellow"
-        var allowedVersionGroups = response.version_groups.map((vg) => vg.name);
-        return getPokemonMoveLevelList(pokemonName, allowedVersionGroups);
-      });
-    } else {
-      // if a specific game is specified ("ruby") then we just find the version group associated
-      // with that game and that is what we use to filter down the move-level-list
-      return dex.getVersionByName(`${genFilter}`).then(function(response) {
-        var allowedVersionGroups = [response.version_group.name];
-        return getPokemonMoveLevelList(pokemonName, allowedVersionGroups);
-      });
-    }
-  
+    // if a specific game is specified ("ruby") then we just find the version group associated
+    // with that game and that is what we use to filter down the move-level-list
+    return dex.getVersionByName(`${genFilter}`).then(function(response) {
+      var allowedVersionGroups = [response.version_group.name];
+      return getPokemonMoveLevelList(pokemonName, allowedVersionGroups);
+    });
   }
 
 function capitalize(str) {
   return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
 }
 
-function execute(pokemon, genArg) {
+function execute(pokemon, genFilter) {
     var pokemon = pokemon.toLowerCase();
     if (!pokemon) {
         return 'Usage: To get the levels at which Bulbasaur learns moves in Gen 3: "!moves Bulbasaur +3" or "!moves Bulbasaur +firered"'
     }
-    const genFilter = genArg ? genArg.slice(1) : genstate.get(cmd.getCurrentMessageContext().channel);
     if (!genFilter) {
       return "Must provide generation filter or set one separately ('!setgen firered' or '!moves bulbasaur +leafgreen'";
     }
