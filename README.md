@@ -13,8 +13,8 @@ Currently only support 3 commands:
 
 * !types Returns a given pokemon's types
 
-* !moves Returns the levels at which a given pokemon learns moves for a given generation
-  * Usage: To get the levels at which Bulbasaur learns moves in Gen 1: "!moves Bulbasaur +1" or "!moves Bulbasaur +red"
+* !moves Returns the levels at which a given pokemon learns moves for a given game
+  * Usage: To get the levels at which Bulbasaur learns moves in Gen 1 Red: "!moves Bulbasaur +red"
   * Uses pokeapi.co for data
 
 Testing

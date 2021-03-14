@@ -36,15 +36,7 @@ const VALID_GENERATIONS = [
     "lets-go-pikachu",
     "lets-go-eevee",
     "sword",
-    "shield",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8"
+    "shield"
 ];
 
 function getGenState(channelName) {
