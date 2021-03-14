@@ -11,10 +11,6 @@ process.on('unhandledRejection', error => {
 var args = process.argv.slice(2);
 const rawMsg = args.join(' ');
 
-const commandName = rawMsg.split(' ')[0].toLowerCase();
-console.log(`command: ${commandName}`);
-const user = "CLI_USER";
-
 manager.manager.setResultHandler((result) => {
   if (result && result.then) {
     result.then((response) => {
@@ -26,4 +22,16 @@ manager.manager.setResultHandler((result) => {
     console.log(result);
   }
 });
-manager.manager.consume(rawMsg);
+
+
+mockParams = {
+  target: process.env.CLI_CHANNEL || "CLI",
+  context: {
+    "user-type": process.env.CLI_USER_TYPE || "user",
+    "username": process.env.CLI_USER || "CLI_USER"
+  },
+  msg: rawMsg,
+  self: false
+}
+const {target, context, msg, self} = mockParams;
+manager.manager.onMessage(target, context, msg, self);
