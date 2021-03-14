@@ -4,7 +4,7 @@ const cmd = require('./../commands.js');
 
 function parseGenFilterableCommand(...messagePieces) {
     let rawMessage = messagePieces.join(' ');
-    let pokemonRegex = /^([^+]+)(?:\s+(\+.+))?$/;
+    let pokemonRegex = /^([^+]+)(?:\s+\+(.+))?$/;
     if (!pokemonRegex.test(rawMessage)) {
         return false;
     }

@@ -21,7 +21,7 @@ mockParams = {
   target: process.env.CLI_CHANNEL || "#CLI",
   context: {
     "user-type": process.env.CLI_USER_TYPE || "user",
-    "username": process.env.CLI_USER || "CLI_USER"
+    "username": process.env.CLI_USER || "CLI"
   },
   msg: rawMsg,
   self: false
