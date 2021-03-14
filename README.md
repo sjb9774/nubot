@@ -37,8 +37,9 @@ Testing
   * `>> Vileplume is Grass and Poison`
   * Supports environment variables to mimic important data
     * `CLI_USER_TYPE` defaults to `"user"` but can be set to `"mod"` to execute mod-only commands
-    * `CLU_USERNAME` defaults to `"CLI_USER"` but can be set to any value; most often used to mimic broadcaster privileges by matching the channel name
+    * `CLU_USERNAME` defaults to `"CLI"` but can be set to any value; most often used to mimic broadcaster privileges by matching the channel name
     * `CLI_CHANNEL` defaults to an arbitrary value of `"#CLI"`, otherwise can be used to get channel-specific information to in combination with `CLI_USERNAME` to mimic broadcaster privileges
+      * Note that with default values, this will give you broadcaster privileges for your commands
 
 Planned additions
 

@@ -69,8 +69,7 @@ class CommandManager {
         if (typeof commandData.identifier === "function") {
             return commandData.identifier(commandMessage);
         }
-        const firstPiece = commandMessage.split(' ')[0].trim();
-        return firstPiece === commandData.identifier;
+        return commandMessage.startsWith(commandData.identifier);
     }
 
     parseArgs(message) {
@@ -113,7 +112,7 @@ const messageContext = () => {
 COMMAND_PERMISSIONS = {
     BROADCASTER: () => {
         const ctx = messageContext();
-        return `#${ctx.username.toLowerCase()}` === `${ctx.channel}`;
+        return `#${ctx.username.toLowerCase()}` === `${ctx.channel.toLowerCase()}`;
     },
     MOD: () => {
         return COMMAND_PERMISSIONS.NON_BROADCASTER_MOD() || COMMAND_PERMISSIONS.BROADCASTER();
