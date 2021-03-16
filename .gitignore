@@ -6,3 +6,4 @@ node_modules/
 .vscode
 gen/generation_state.json
 .DS_Store
+config/local.json
