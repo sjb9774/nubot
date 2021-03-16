@@ -32,4 +32,4 @@ jobs:
           npm install
           mkdir config
           echo '{"deploy_user":"${{secrets.LIVE_SERVER_USER}}","deploy_server":"${{secrets.LIVE_SERVER_IP}}","deploy_dir":"/home/centos/prod","repo_url":"git@github.com:sjb9774/nubot.git"}' > config/local.json
-          npx shipit production
+          npx shipit production deploy
