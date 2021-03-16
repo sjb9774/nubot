@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Setup ssh agent for deployment
-      - uses: webfactory/ssh-agent@v0.5.1
+        uses: webfactory/ssh-agent@v0.5.1
         with:
           ssh-private-key: ${{ secrets.LIVE_SERVER_PRIVATE_KEY }}
 
