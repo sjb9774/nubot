@@ -25,10 +25,14 @@ fs.readdirSync(`${__dirname}/commands/`).forEach((file) => {
         const argResolver = cmd.argResolver || defaultResolver;
         const wrappedExecute = (...args) => {
             args = argResolver(...args);
-            if (isGod()) { console.log("Executing as god user"); }
-            if (isGod() || permFunction(...args)) {
+            const isGodUser = isGod();
+            const isPermitted = permFunction(...args);
+            if (isGodUser) { console.log("Executing as god user"); }
+
+            if (isGodUser || isPermitted) {
                 let result = cmd.executeFunction(...args);
-                if (result && isGod) {
+                // add a little flare that indicates this was only allowed because of god status
+                if (result && isGodUser && !isPermitted) {
                     return `TheIlluminati ${result}`;
                 } 
                 return result;
