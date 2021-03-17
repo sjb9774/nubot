@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const STORAGE_PATH = './gen/generation_state.json';
+const STORAGE_PATH = `${__dirname}/generation_state.json`;
 
 const VALID_GENERATIONS = [
     "red",

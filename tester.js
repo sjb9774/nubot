@@ -1,5 +1,7 @@
 require('dotenv').config();
-const manager = require('./cmdsetup.js');
+require('app-module-path').addPath(__dirname);
+const manager = require(`./cmdsetup.js`);
+
 
 var args = process.argv.slice(2);
 const rawMsg = args.join(' ');

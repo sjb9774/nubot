@@ -26,7 +26,7 @@ dex.getGenerationsList().then((response) => {
             });
         });
     })).then((results) => {
-        fs.writeFile('./gen/genindex.json', JSON.stringify(results), () => {
+        fs.writeFile(`${__dirname}/gen/genindex.json`, JSON.stringify(results), () => {
             process.exit();
         });
     });
