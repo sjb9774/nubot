@@ -1,8 +1,8 @@
 require('app-module-path').addPath(__dirname);
 const tmi = require('tmi.js');
 const bst = require('./bst.json');
-require('./cmdsetup.js').setup();
-const manager = require('./cmdsetup.js');
+const manager = require('./cmdsetup.js').manager;
+const commands = require('./commands.js');
 const cfg = require('./config.js')
 
 process.on('unhandledRejection', (reason, p) => {
@@ -37,11 +37,11 @@ const opts = {
 // Create a client with our options
 const client = new tmi.client(opts);
 
-manager.manager.setResultHandler((response) => {
+manager.setResultHandler((response) => {
     if (!response) {
       return;
     }
-    const messageContext = manager.getCurrentMessageContext();
+    const messageContext = commands.getCurrentMessageContext();
     const respond = (result) => {
       console.log(`Responding to ${messageContext.username} in ${messageContext.target}`);
       client.say(messageContext.target, result);
@@ -57,7 +57,7 @@ manager.manager.setResultHandler((response) => {
 });
 
 // Register our event handlers (defined below)
-client.on('message', manager.manager.onMessage.bind(manager.manager));
+client.on('message', manager.onMessage.bind(manager));
 client.on('connected', onConnectedHandler);
 // Connect to Twitch:
 client.connect().catch(console.error);
