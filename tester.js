@@ -1,6 +1,6 @@
-require('dotenv').config();
 require('app-module-path').addPath(__dirname);
 const manager = require(`./cmdsetup.js`);
+const cfg = require('./config.js')
 
 
 var args = process.argv.slice(2);
@@ -20,10 +20,10 @@ manager.manager.setResultHandler((result) => {
 
 
 mockParams = {
-  target: process.env.CLI_CHANNEL || "#CLI",
+  target: cfg.getEnvConfig("CLI_CHANNEL") || "#CLI",
   context: {
-    "user-type": process.env.CLI_USER_TYPE || "user",
-    "username": process.env.CLI_USER || "CLI"
+    "user-type": cfg.getEnvConfig("CLI_USER_TYPE") || "user",
+    "username": cfg.getEnvConfig("CLI_USER") || "CLI"
   },
   msg: rawMsg,
   self: false

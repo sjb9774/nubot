@@ -1,7 +1,7 @@
 const commands = require(`commands.js`);
-require('dotenv').config();
+const cfg = require('./config.js')
 
-const DISABLED_COMMANDS = JSON.parse(process.env.DISABLED_COMMANDS || '[]');
+const DISABLED_COMMANDS = JSON.parse(cfg.getEnvConfig("DISABLED_COMMANDS") || '[]');
 
 const fs = require('fs');
 // every file in the "commands" folder can be automatically converted into a bot command as long as it exposes the three props
