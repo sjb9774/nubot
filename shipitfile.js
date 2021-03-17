@@ -73,7 +73,7 @@ module.exports = shipit => {
       shipit.blTask('pm2-server', async () => {
         await shipit.remote(`pm2 delete -s ${appName} || :`);
         await shipit.remote(
-          `pm2 start ${ecosystemFilePath} --env production --watch true`
+          `pm2 start ${ecosystemFilePath} --env production`
         );
       });
   

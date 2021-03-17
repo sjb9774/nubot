@@ -40,15 +40,3 @@ Testing
     * `CLU_USERNAME` defaults to `"CLI"` but can be set to any value; most often used to mimic broadcaster privileges by matching the channel name
     * `CLI_CHANNEL` defaults to an arbitrary value of `"#CLI"`, otherwise can be used to get channel-specific information to in combination with `CLI_USERNAME` to mimic broadcaster privileges
       * Note that with default values, this will give you broadcaster privileges for your commands
-
-Planned additions
-
-* !nextMove pokemonName lvl 
-  * Gives next level for when a move will be learned by leveling up
-
-* !info moveName\
-  * If move: Gives basic move info, e.g. description, power, acc, Spe vs Phy
-  * If poke: Gives basic poke info, types, BST, HP 
-  * Should work similar to Pokemon Showdown /dt command
-
-* !info 

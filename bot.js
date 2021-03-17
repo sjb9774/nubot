@@ -1,6 +1,7 @@
 require('app-module-path').addPath(__dirname);
 const tmi = require('tmi.js');
 const bst = require('./bst.json');
+require('./cmdsetup.js').setup();
 const manager = require('./cmdsetup.js');
 const cfg = require('./config.js')
 

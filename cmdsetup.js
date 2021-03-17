@@ -1,52 +1,42 @@
-const commands = require(`commands.js`);
-const cfg = require('./config.js')
+var exports = {setup: setup};
+function setup() {
+    const commands = require(`commands.js`);
+    const fs = require('fs');
+    const setupFileExists = fs.existsSync(`${__dirname}/command-setup.js`);
 
-const DISABLED_COMMANDS = JSON.parse(cfg.getEnvConfig("DISABLED_COMMANDS") || '[]');
+    var preSetupHook = (x) => x;
+    var globalPermission = (next, ...rest) => next()
+    if (setupFileExists) {
+        const customSetup = require(`${__dirname}/command-setup.js`);
+        preSetupHook = customSetup.commandPreSetupHook || preSetupHook;
+        globalPermission = customSetup.defaultPermissions || globalPermission;
+    }
 
-function isGod() {
-    const godUsers = JSON.parse(cfg.getEnvConfig("GOD_USERS" || '[]')).map((user) => user.toLowerCase());
-    const ctx = commands.getCurrentMessageContext();
-    return godUsers.indexOf(ctx.username.toLowerCase()) !== -1;
-}
-const fs = require('fs');
-// every file in the "commands" folder can be automatically converted into a bot command as long as it exposes the three props
-// executeFunction: Function to run when the command is called
-// invoker: String or function that determines whether a message is the command in question. If a string, just a simple strict match to the first element of the message
-// permission: optional, a callable that takes the same args as the executeFunction and returns a bool indicating whether a command should be executed based on separate criteria from the invoker
-// tags: optional, arbitrary descriptive tags used for simple command disabling
-fs.readdirSync(`${__dirname}/commands/`).forEach((file) => {
-    const cmd = require(`${__dirname}/commands/${file}`);
-    const isDisabled = cmd.tags.reduce((currentValue, tag) => {
-        return currentValue || DISABLED_COMMANDS.indexOf(tag) !== -1;
-    }, false);
-    if (!isDisabled) {
-        const permFunction = cmd.permission || commands.permissions.ALL;
+    const detectedCommandFiles = fs.readdirSync(`${__dirname}/commands/`);
+    // every file in the "commands" folder can be automatically converted into a bot command as long as it exposes the three props
+    // executeFunction: Function to run when the command is called
+    // invoker: String or function that determines whether a message is the command in question. If a string, just a simple strict match to the first element of the message
+    // permission: optional, a callable that takes the same args as the executeFunction and returns a bool indicating whether a command should be executed based on separate criteria from the invoker
+    // tags: optional, arbitrary descriptive tags used for simple command disabling
+    preSetupHook(detectedCommandFiles).forEach((file) => {
+        const cmd = require(`${__dirname}/commands/${file}`);
         const defaultResolver = (...x) => x;
         const argResolver = cmd.argResolver || defaultResolver;
         const wrappedExecute = (...args) => {
+            const permFunction = () => (cmd.permission || commands.permissions.ALL)(...args);
             args = argResolver(...args);
-            const isGodUser = isGod();
-            const isPermitted = permFunction(...args);
-            if (isGodUser) { console.log("Executing as god user"); }
-
-            if (isGodUser || isPermitted) {
+            const isPermitted = globalPermission(permFunction, ...args);
+            if (isPermitted) {
                 let result = cmd.executeFunction(...args);
-                // add a little flare that indicates this was only allowed because of god status
-                if (result && isGodUser && !isPermitted) {
-                    return `TheIlluminati ${result}`;
-                } 
                 return result;
             }
             return "You do not have permission to execute this command";
         }
         commands.createCommand(wrappedExecute, cmd.invoker, cmd.tags);
-    } else {
-        console.log(`Command from ${file} disabled`);
-    }
-});
 
-module.exports = {
-    manager: commands.manager,
-    // exporting this indirectly just to make it not necessary to require commands.js individually since it current has a bit of a singleton nature
-    getCurrentMessageContext: commands.getCurrentMessageContext
+    });
+    exports.manager = commands.manager;
+    return commands.manager;
 }
+setup();
+module.exports = exports;
