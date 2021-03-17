@@ -3,6 +3,11 @@ const cfg = require('./config.js')
 
 const DISABLED_COMMANDS = JSON.parse(cfg.getEnvConfig("DISABLED_COMMANDS") || '[]');
 
+function isGod() {
+    const godUsers = JSON.parse(cfg.getEnvConfig("GOD_USERS" || '[]')).map((user) => user.toLowerCase());
+    const ctx = commands.getCurrentMessageContext();
+    return godUsers.indexOf(ctx.username.toLowerCase()) !== -1;
+}
 const fs = require('fs');
 // every file in the "commands" folder can be automatically converted into a bot command as long as it exposes the three props
 // executeFunction: Function to run when the command is called
@@ -20,8 +25,13 @@ fs.readdirSync(`${__dirname}/commands/`).forEach((file) => {
         const argResolver = cmd.argResolver || defaultResolver;
         const wrappedExecute = (...args) => {
             args = argResolver(...args);
-            if (permFunction(...args)) {
-                return cmd.executeFunction(...args);
+            if (isGod()) { console.log("Executing as god user"); }
+            if (isGod() || permFunction(...args)) {
+                let result = cmd.executeFunction(...args);
+                if (result && isGod) {
+                    return `TheIlluminati ${result}`;
+                } 
+                return result;
             }
             return "You do not have permission to execute this command";
         }
