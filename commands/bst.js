@@ -5,12 +5,14 @@ function capitalize(str) {
 }
 
 function execute(pokemon) {
+    if (!pokemon || !pokemon.trim()) {
+      return "Please include a pokemon name";
+    }
+
     if (pokemon.toLowerCase().includes("numot", "kenji")) {
         return "0 LUL";
     }
-    if (!pokemon.trim()) {
-      return "Please include a pokemon name";
-    }
+
     if (!bst[pokemon]) {
       return `No stats found for "${pokemon}"`;
     }
