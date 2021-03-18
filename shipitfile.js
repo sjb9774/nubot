@@ -13,7 +13,7 @@ module.exports = shipit => {
         shared: {
           overwrite: true,
           dirs: ['node_modules'],
-          files: ['.env', 'gen/generation_state.json']
+          files: ['.env', 'gen/generation_state.json', 'matchup_index.json']
         }
       },
       production: {
