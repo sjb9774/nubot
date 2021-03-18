@@ -1,6 +1,6 @@
 var exports = {setup: setup};
 function setup() {
-    const commands = require(`commands.js`);
+    const commands = require(`./commands.js`);
     const fs = require('fs');
     const setupFileExists = fs.existsSync(`${__dirname}/command-setup.js`);
 

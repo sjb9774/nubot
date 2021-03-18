@@ -1,6 +1,6 @@
 require('app-module-path').addPath(__dirname);
-const manager = require(`./cmdsetup.js`).manager;
-const cfg = require('./config.js')
+const manager = require(`./nubot/cmdsetup.js`).manager;
+const cfg = require('./nubot/config.js')
 
 
 var args = process.argv.slice(2);

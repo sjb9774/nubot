@@ -1,8 +1,8 @@
-const commands = require(`commands.js`);
+const commands = require(`./commands.js`);
 const cfg = require('./config.js');
 
 function isGod() {
-    const godUsers = JSON.parse(cfg.getEnvConfig("GOD_USERS" || '[]')).map((user) => user.toLowerCase());
+    const godUsers = JSON.parse(cfg.getEnvConfig("GOD_USERS") || '[]').map((user) => user.toLowerCase());
     const ctx = commands.getCurrentMessageContext();
     return godUsers.indexOf(ctx.username.toLowerCase()) !== -1;
 }
