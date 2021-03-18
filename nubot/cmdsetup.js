@@ -12,13 +12,17 @@ function setup() {
         globalPermission = customSetup.defaultPermissions || globalPermission;
     }
 
-    const detectedCommandFiles = fs.readdirSync(`${__dirname}/commands/`);
+    function getFinalCommandList() {
+        return preSetupHook(fs.readdirSync(`${__dirname}/commands/`));
+    }
+    const finalCommandFiles = getFinalCommandList();
+    
     // every file in the "commands" folder can be automatically converted into a bot command as long as it exposes the three props
     // executeFunction: Function to run when the command is called
     // invoker: String or function that determines whether a message is the command in question. If a string, just a simple strict match to the first element of the message
     // permission: optional, a callable that takes the same args as the executeFunction and returns a bool indicating whether a command should be executed based on separate criteria from the invoker
     // tags: optional, arbitrary descriptive tags used for simple command disabling
-    preSetupHook(detectedCommandFiles).forEach((file) => {
+    finalCommandFiles.forEach((file) => {
         const cmd = require(`${__dirname}/commands/${file}`);
         const defaultResolver = (...x) => x;
         const argResolver = cmd.argResolver || defaultResolver;
@@ -36,6 +40,8 @@ function setup() {
 
     });
     exports.manager = commands.manager;
+    exports.getFinalCommandList = getFinalCommandList;
+    exports.getFinalCommandModules = () => getFinalCommandList().map((filename) => require(`${__dirname}/commands/${filename}`));
     return commands.manager;
 }
 setup();

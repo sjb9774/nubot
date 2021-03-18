@@ -1,21 +1,7 @@
 const Pokedex = require('pokedex-promise-v2');
-const genstate = require('../gen/genstate.js');
-const cmd = require('./../commands.js');
 const genhelper = require('./../gen/gencommandhelper.js');
+const utils = require('../utils.js');
 
-function romanize (num) {
-    if (isNaN(num))
-        return NaN;
-    var digits = String(+num).split(""),
-        key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-               "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-               "","I","II","III","IV","V","VI","VII","VIII","IX"],
-        roman = "",
-        i = 3;
-    while (i--)
-        roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-    return Array(+digits.join("") + 1).join("M") + roman;
-}
 
 function getPokemonMoveLevelList(pokemonName, allowedVersionGroups) {
     var dex = new Pokedex();
@@ -45,14 +31,11 @@ function getPokemonMoveLevelList(pokemonName, allowedVersionGroups) {
     });
   }
 
-function capitalize(str) {
-  return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
-}
 
 function execute(pokemon, genFilter) {
     var pokemon = pokemon.toLowerCase();
     if (!pokemon) {
-        return 'Usage: To get the levels at which Bulbasaur learns moves in Gen 3: "!moves Bulbasaur +3" or "!moves Bulbasaur +firered"'
+        return 'Usage: To get the levels at which Bulbasaur learns moves in Fire Red: "!moves Bulbasaur +firered"'
     }
     if (!genFilter) {
       return "Must provide generation filter or set one separately ('!setgen firered' or '!moves bulbasaur +leafgreen'";
@@ -60,13 +43,13 @@ function execute(pokemon, genFilter) {
     return getPokemonMoves(pokemon, genFilter).then((data) => {
         const moveLevelList = [...data];
         if (moveLevelList.length === 0) {
-        return `${capitalize(pokemon)} learns no moves in generation "${genFilter}"`;
+        return `${utils.capitalize(pokemon)} learns no moves in game "${genFilter}"`;
         }
         const moves = moveLevelList.join(', ');
-        return `(Gen "${genFilter}") ${capitalize(pokemon)} learns moves at the following levels: ${moves}`;
+        return `(Gen "${genFilter}") ${utils.capitalize(pokemon)} learns moves at the following levels: ${moves}`;
     }).catch(function(err) {
         console.log(err);
-        return `No pokemon found by name ${capitalize(pokemon)} in gen "${genFilter}"`;
+        return `No pokemon found by name ${utils.capitalize(pokemon)} in game "${genFilter}"`;
     });
 }
 

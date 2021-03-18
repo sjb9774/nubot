@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node bot.js",
     "test": "node tester.js",
-    "build-gen-index": "node nubot/gen/create_gen_index.js"
+    "build-gen-index": "node nubot/gen/create_gen_index.js",
+    "build-matchup-index": "node build_matchup_index.js"
   },
   "dependencies": {
     "app-module-path": "^2.2.0",

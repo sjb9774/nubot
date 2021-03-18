@@ -1,5 +1,8 @@
 function execute() {
-    return "Commands: !bst, !setgen, !getgen, !moves, !types, !terry"
+    const cmdsetup = require('../cmdsetup.js');
+    const modules = cmdsetup.getFinalCommandModules();
+    const invokers = modules.map((m) => m.invoker);
+    return `Commands: ${invokers.sort().join(', ')}`;
 }
 
 module.exports = {
