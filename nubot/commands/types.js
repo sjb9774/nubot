@@ -14,8 +14,8 @@ function execute(pokemon, genFilter) {
     const existsInGen = response.game_indices.reduce((currentValue, gi) => {
       return currentValue || gi.version.name === genFilter;
     }, false);
+    let genTypes = response.types.map((typeData) => typeData.type.name);
     if (existsInGen && response.past_types && response.past_types.length > 0) {
-      let genTypes;
       response.past_types.forEach((past_type_info) => {
         if (genhelper.isGenFilterBeforeGen(genFilter, past_type_info.generation.name)) {
           genTypes = past_type_info.types.map((past_type) => past_type.type.name);
@@ -24,8 +24,11 @@ function execute(pokemon, genFilter) {
       return genTypes;
     }
     
-    return response.types.map((typeData) => typeData.type.name);
+    return genTypes;
   }).then((types) => {
+    if (!types) {
+      return `Couldn't determine types for ${capitalize(pokemon)} -- someone tell @EnchantedStevening!`;
+    }
     const stringTypes = types.map((t) => capitalize(t)).join(" and ");
     return `${capitalize(pokemon)} is ${stringTypes}`;
   });

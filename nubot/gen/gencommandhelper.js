@@ -19,7 +19,7 @@ function parseGenFilterableCommand(...messagePieces) {
     return [pokemon, genFilter];
 }
 
-function isGenFilterBeforeGen(genFilter, gen) {
+function goesGenFilterApplyToGen(genFilter, gen) {
     const gIndex = genindex.findIndex((genObject) => {
         return genObject.generation === gen;
     })
@@ -27,10 +27,10 @@ function isGenFilterBeforeGen(genFilter, gen) {
         return genObject.versions.indexOf(genFilter) !== -1
     });
     
-    return gfIndex < gIndex;
+    return gfIndex <= gIndex;
 }
 
 return module.exports = {
     pokemonAndGenFilterParse: parseGenFilterableCommand,
-    isGenFilterBeforeGen: isGenFilterBeforeGen
+    isGenFilterBeforeGen: goesGenFilterApplyToGen
 }
