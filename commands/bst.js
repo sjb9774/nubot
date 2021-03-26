@@ -1,4 +1,4 @@
-const bst = require('../../bst.json');
+const bst = require('../bst.json');
 const Fuse = require('fuse.js');
 
 function capitalize(str) {

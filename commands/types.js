@@ -1,5 +1,5 @@
-const dex = require('../pokedex.js');
-const genhelper = require('./../gen/gencommandhelper.js');
+const dex = require('nubot/pokedex.js');
+const genhelper = require('nubot/gen/gencommandhelper.js');
 const Pokedex = require('pokedex-promise-v2');
 
 

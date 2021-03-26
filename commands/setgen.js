@@ -1,8 +1,9 @@
-const genstate = require('../gen/genstate.js');
-const cmd = require('./../commands.js');
+const genstate = require('nubot/gen/genstate.js');
+const permissions = require('stevebot').commands.permissions;
 
 function execute(generation) {
-    const msgCtx = cmd.getCurrentMessageContext();
+    const { getCurrentMessageContext } = require('stevebot');
+    const msgCtx = getCurrentMessageContext();
     let didSet = genstate.set(msgCtx.channel, generation);
     if (didSet) {
         return `Set generation to "${generation}"`;
@@ -13,6 +14,6 @@ function execute(generation) {
 module.exports = {
     executeFunction: execute,
     invoker: '!setgen',
-    permission: cmd.permissions.MOD,
+    permission: () => permissions.MOD,
     tags: ["setgen", "gen"]
 }

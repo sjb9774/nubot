@@ -1,5 +1,6 @@
 require('app-module-path').addPath(__dirname);
-const manager = require(`./nubot/cmdsetup.js`).manager;
+const stevebot = require('stevebot');
+const manager = stevebot.manager;
 const cfg = require('./nubot/config.js')
 
 

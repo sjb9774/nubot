@@ -1,8 +1,8 @@
 const genindex = require('./genindex.json');
-const genstate = require('../gen/genstate.js');
-const cmd = require('./../commands.js');
+const genstate = require('../gen/genstate.js');;
 
 function parseGenFilterableCommand(...messagePieces) {
+    const cmd = require('stevebot').commands;
     let rawMessage = messagePieces.join(' ');
     let pokemonRegex = /^([^+]+)(?:\s+\+(.+))?$/;
     if (!pokemonRegex.test(rawMessage)) {
