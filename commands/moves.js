@@ -1,6 +1,6 @@
 const Pokedex = require('pokedex-promise-v2');
-const genhelper = require('./../gen/gencommandhelper.js');
-const utils = require('../utils.js');
+const genhelper = require('nubot/gen/gencommandhelper.js');
+const utils = require('nubot/utils.js');
 
 
 function getPokemonMoveLevelList(pokemonName, allowedVersionGroups) {

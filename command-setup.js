@@ -1,9 +1,9 @@
-const commands = require(`./commands.js`);
-const cfg = require('./config.js');
+const cfg = require('./nubot/config.js');
 
 function isGod() {
+    const { getCurrentMessageContext } = require('stevebot');
     const godUsers = JSON.parse(cfg.getEnvConfig("GOD_USERS") || '[]').map((user) => user.toLowerCase());
-    const ctx = commands.getCurrentMessageContext();
+    const ctx = getCurrentMessageContext();
     return godUsers.indexOf(ctx.username.toLowerCase()) !== -1;
 }
 

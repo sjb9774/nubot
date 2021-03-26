@@ -1,7 +1,5 @@
-const Pokedex = require('pokedex-promise-v2');
-const utils = require('../utils.js');
-const matchupIndex = require('../../matchup_index.json');
-const { capitalize } = require('../utils.js');
+const matchupIndex = require('../matchup_index.json');
+const { capitalize } = require('nubot/utils.js');
 
 function attackArgParser(...argPieces) {
     if (argPieces.length < 2) {

@@ -1,6 +1,6 @@
 function execute() {
-    const cmdsetup = require('../cmdsetup.js');
-    const modules = cmdsetup.getFinalCommandModules();
+    const { getFinalCommandModules } = require('stevebot');
+    const modules = getFinalCommandModules();
     const invokers = modules.map((m) => m.invoker);
     return `Commands: ${invokers.sort().join(', ')}`;
 }

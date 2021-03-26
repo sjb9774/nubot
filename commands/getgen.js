@@ -1,8 +1,8 @@
-const genstate = require('../gen/genstate.js');
-const cmd = require('./../commands.js');
+const genstate = require('nubot/gen/genstate.js');
 
 function execute() {
-    const msgCtx = cmd.getCurrentMessageContext();
+    const { getCurrentMessageContext } = require('stevebot');
+    const msgCtx = getCurrentMessageContext();
     const gen = genstate.get(msgCtx.channel);
     if (gen) {
         return `Generation is currently set to "${gen}"`;

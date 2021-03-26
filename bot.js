@@ -1,9 +1,10 @@
 require('app-module-path').addPath(__dirname);
 const tmi = require('tmi.js');
-const bst = require('./bst.json');
-const manager = require('./nubot/cmdsetup.js').manager;
-const commands = require('./nubot/commands.js');
-const cfg = require('./nubot/config.js')
+const stevebot = require('stevebot');
+const cfg = require('./nubot/config.js');
+
+const manager = stevebot.manager;
+const commands = stevebot.commands;
 
 process.on('unhandledRejection', (reason, p) => {
   console.log(reason, p);
