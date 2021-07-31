@@ -4,8 +4,9 @@
   "description": "A simple bot to help out with some ironmon run info over at NumotTheNummy's channel.",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js",
+    "start": "node runbot.js",
     "test": "node tester.js",
+    "mocha": "NODE_PATH=. mocha",
     "build-gen-index": "node nubot/gen/create_gen_index.js",
     "build-matchup-index": "node build_matchup_index.js"
   },
@@ -40,6 +41,7 @@
     "BST"
   ],
   "devDependencies": {
+    "mocha": "^8.3.2",
     "shipit-cli": "^5.3.0",
     "shipit-deploy": "^5.3.0",
     "shipit-shared": "^4.4.2"
