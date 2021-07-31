@@ -20,7 +20,7 @@
     "jaro-winkler": "^0.2.8",
     "mysql": "^2.18.1",
     "pokedex-promise-v2": "^3.3.0",
-    "stevebot": "0.0.1",
+    "stevebot": "file:../stevebot",
     "string-similarity": "^4.0.3",
     "tmi": "^2.0.0",
     "tmi.js": "^1.5.0"
