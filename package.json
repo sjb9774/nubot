@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node runbot.js",
     "test": "node tester.js",
-    "mocha": "NODE_PATH=. mocha",
+    "mocha": "NODE_PATH=$(pwd) mocha",
     "build-gen-index": "node nubot/gen/create_gen_index.js",
     "build-matchup-index": "node build_matchup_index.js"
   },
@@ -20,7 +20,7 @@
     "jaro-winkler": "^0.2.8",
     "mysql": "^2.18.1",
     "pokedex-promise-v2": "^3.3.0",
-    "stevebot": "file:../stevebot",
+    "stevebot": "0.0.2",
     "string-similarity": "^4.0.3",
     "tmi": "^2.0.0",
     "tmi.js": "^1.5.0"
