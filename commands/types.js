@@ -7,7 +7,7 @@ function capitalize(str) {
   return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
 }
 
-function execute(getCurrentMessageContext, pokemon, genFilter) {
+function execute(pokemon, genFilter, {getCurrentMessageContext}) {
   var dex = new Pokedex();
   return dex.getPokemonByName(pokemon.toLowerCase()).then((response) => {
     // does this pokemon even exist in our specified gen? if not, just assume we want the most recent typing

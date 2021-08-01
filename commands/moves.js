@@ -32,7 +32,7 @@ function getPokemonMoveLevelList(pokemonName, allowedVersionGroups) {
   }
 
 
-function execute(getCurrentMessageContext, pokemon, genFilter) {
+function execute(pokemon, genFilter, {getCurrentMessageContext}) {
     var pokemon = pokemon.toLowerCase();
     if (!pokemon) {
         return 'Usage: To get the levels at which Bulbasaur learns moves in Fire Red: "!moves Bulbasaur +firered"'

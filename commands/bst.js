@@ -5,7 +5,7 @@ function capitalize(str) {
   return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
 }
 
-function execute(getCurrentMessageContext, pokemon) {
+function execute(pokemon) {
     if (!pokemon || !pokemon.trim()) {
       return "Please include a pokemon name";
     }

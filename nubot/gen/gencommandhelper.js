@@ -1,9 +1,10 @@
 const genindex = require('./genindex.json');
 const genstate = require('../gen/genstate.js');;
 
-function parseGenFilterableCommand(getCurrentMessageContext, command, ...messagePieces) {
+function parseGenFilterableCommand({args, getCurrentMessageContext}) {
     let messageContext = getCurrentMessageContext();
-    let rawMessage = messagePieces.join(' ');
+    // slice 1 to ignore command
+    let rawMessage = args.slice(1).join(' ');
     let pokemonRegex = /^([^+]+)(?:\s+\+(.+))?$/;
     if (!pokemonRegex.test(rawMessage)) {
         return false;
@@ -16,7 +17,7 @@ function parseGenFilterableCommand(getCurrentMessageContext, command, ...message
         genFilter = genstate.get(messageContext.channel);
     }
 
-    return [getCurrentMessageContext, pokemon, genFilter];
+    return [pokemon, genFilter];
 }
 
 function doesGenFilterApplyToGen(genFilter, gen) {

@@ -1,7 +1,7 @@
 const genstate = require('nubot/gen/genstate.js');
 const permissions = require('stevebot').permissions;
 
-function execute(getCurrentMessageContext, command, generation) {
+function execute(generation, {getCurrentMessageContext}) {
     const msgCtx = getCurrentMessageContext();
     let didSet = genstate.set(msgCtx.channel, generation);
     if (didSet) {

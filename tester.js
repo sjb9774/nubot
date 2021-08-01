@@ -10,7 +10,7 @@ const cfg = require('./nubot/config.js')
 var args = process.argv.slice(2);
 const rawMsg = args.join(' ');
 const CLI_BOT_RESPONSE_COLOR = "\x1b[1m"
-manager.setResultHandler((result, commandMessage, say) => {
+manager.setResultHandler(({result, commandMessage, say}) => {
   if (result && result.then) {
     result.then((response) => {
       say(response);

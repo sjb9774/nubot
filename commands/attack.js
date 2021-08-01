@@ -1,14 +1,16 @@
 const matchupIndex = require('../matchup_index.json');
 const { capitalize } = require('nubot/utils.js');
 
-function attackArgParser(getCurrentMessageContext, command, ...argPieces) {
+function attackArgParser({args}) {
+    // ignore command itself
+    let argPieces = args.slice(1);
     if (argPieces.length < 2) {
         return null;
     }
-    return [getCurrentMessageContext, argPieces[0].toLowerCase(), argPieces[1].toLowerCase().split('/')];
+    return [argPieces[0].toLowerCase(), argPieces[1].toLowerCase().split('/')];
 }
 
-function execute(getCurrentMessageContext, attackingType, defendingTypes) {
+function execute(attackingType, defendingTypes) {
    if (!attackingType || !defendingTypes || defendingTypes.length === 0 || defendingTypes.length > 2) {
        return "Usage: '!attack fire ice/grass"
    }
