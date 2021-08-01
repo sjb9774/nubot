@@ -2,7 +2,7 @@ require('app-module-path').addPath(__dirname);
 const tmi = require('tmi.js');
 const stevebot = require('stevebot');
 const cfg = require('./nubot/config.js');
-const { getCurrentMessageContext, createNubot } = require('./bot.js');
+const { createNubot } = require('./bot.js');
 const { client } = require('./client.js');
 
 const nubot = createNubot((x) => x, (x) => x);
@@ -13,22 +13,22 @@ process.on('unhandledRejection', (reason, p) => {
   console.trace();
 })
 
-manager.setResultHandler((response) => {
-    if (!response) {
+manager.setResultHandler(({result}) => {
+    if (!result) {
       return;
     }
-    const messageContext = getCurrentMessageContext();
-    const respond = (result) => {
+    const messageContext = nubot.getCurrentMessageContext();
+    const respond = (response) => {
       console.log(`Responding to ${messageContext.username} in ${messageContext.target}`);
-      client.say(messageContext.target, result);
+      client.say(messageContext.target, response);
     };
 
-    if (response.then) {
-      response.then(function(result) {
-        respond(result);
+    if (result.then) {
+      result.then(function(response) {
+        respond(response);
       })
-    } else if (response) {
-      respond(response);
+    } else if (result) {
+      respond(result);
     }
 });
 
