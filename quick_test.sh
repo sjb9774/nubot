@@ -1,4 +1,5 @@
 CLI_USER="tester" CLI_CHANNEL="#tester" npm test '!bst kenji'
+CLI_USER="tester" CLI_CHANNEL="#tester" npm test '!bst celebi'
 CLI_USER="tester" CLI_CHANNEL="#tester" npm test '!moves koffing'
 CLI_USER="tester" CLI_CHANNEL="#tester" npm test '!types gengar'
 CLI_USER="tester" CLI_CHANNEL="#tester" npm test '!getgen'
