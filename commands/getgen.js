@@ -1,7 +1,6 @@
 const genstate = require('nubot/gen/genstate.js');
 
-function execute() {
-    const { getCurrentMessageContext } = require('stevebot');
+function execute(getCurrentMessageContext) {
     const msgCtx = getCurrentMessageContext();
     const gen = genstate.get(msgCtx.channel);
     if (gen) {

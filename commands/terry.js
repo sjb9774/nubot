@@ -1,4 +1,4 @@
-function execute(pokemon) {
+function execute(getCurrentMessageContext, pokemon) {
     return "RIP Terry :(";
 }
 

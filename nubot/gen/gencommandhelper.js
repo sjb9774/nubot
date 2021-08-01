@@ -1,8 +1,8 @@
 const genindex = require('./genindex.json');
 const genstate = require('../gen/genstate.js');;
 
-function parseGenFilterableCommand(...messagePieces) {
-    const cmd = require('stevebot').commands;
+function parseGenFilterableCommand(getCurrentMessageContext, command, ...messagePieces) {
+    let messageContext = getCurrentMessageContext();
     let rawMessage = messagePieces.join(' ');
     let pokemonRegex = /^([^+]+)(?:\s+\+(.+))?$/;
     if (!pokemonRegex.test(rawMessage)) {
@@ -13,13 +13,13 @@ function parseGenFilterableCommand(...messagePieces) {
     let genFilter = matches[2];
 
     if (!genFilter) {
-        genFilter = genstate.get(cmd.getCurrentMessageContext().channel);
+        genFilter = genstate.get(messageContext.channel);
     }
 
-    return [pokemon, genFilter];
+    return [getCurrentMessageContext, pokemon, genFilter];
 }
 
-function goesGenFilterApplyToGen(genFilter, gen) {
+function doesGenFilterApplyToGen(genFilter, gen) {
     const gIndex = genindex.findIndex((genObject) => {
         return genObject.generation === gen;
     })
@@ -32,5 +32,5 @@ function goesGenFilterApplyToGen(genFilter, gen) {
 
 return module.exports = {
     pokemonAndGenFilterParse: parseGenFilterableCommand,
-    isGenFilterBeforeGen: goesGenFilterApplyToGen
+    isGenFilterBeforeGen: doesGenFilterApplyToGen
 }

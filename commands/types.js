@@ -7,7 +7,7 @@ function capitalize(str) {
   return str.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
 }
 
-function execute(pokemon, genFilter) {
+function execute(getCurrentMessageContext, pokemon, genFilter) {
   var dex = new Pokedex();
   return dex.getPokemonByName(pokemon.toLowerCase()).then((response) => {
     // does this pokemon even exist in our specified gen? if not, just assume we want the most recent typing
@@ -17,7 +17,7 @@ function execute(pokemon, genFilter) {
     let genTypes = response.types.map((typeData) => typeData.type.name);
     if (existsInGen && response.past_types && response.past_types.length > 0) {
       response.past_types.forEach((past_type_info) => {
-        if (genhelper.isGenFilterBeforeGen(genFilter, past_type_info.generation.name)) {
+        if (genhelper.isGenFilterBeforeGen(getCurrentMessageContext(), genFilter, past_type_info.generation.name)) {
           genTypes = past_type_info.types.map((past_type) => past_type.type.name);
         }
       });

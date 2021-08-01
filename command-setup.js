@@ -1,6 +1,7 @@
 const cfg = require('./nubot/config.js');
 
 function isGod() {
+    return false;
     const { getCurrentMessageContext } = require('stevebot');
     const godUsers = JSON.parse(cfg.getEnvConfig("GOD_USERS") || '[]').map((user) => user.toLowerCase());
     const ctx = getCurrentMessageContext();
