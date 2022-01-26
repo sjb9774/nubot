@@ -23,7 +23,7 @@ function execute(pokemon) {
         return `${capitalize(pokemon)} base stat total: ${bst[pokemon]}`;
       }
     }
-    return `No stats found for "${pokemon}"`;
+    return `No stats found`;
 }
 
 module.exports = {
