@@ -24,7 +24,7 @@
     "tmi.js": "^1.5.0"
   },
   "engines": {
-    "node": "8.x"
+    "node": "14.x"
   },
   "repository": {
     "url": "https://glitch.com/edit/#!/classy-wood-lady"
