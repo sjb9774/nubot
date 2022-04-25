@@ -49,7 +49,7 @@ function execute(pokemon, genFilter) {
         return `(Gen "${genFilter}") ${utils.capitalize(pokemon)} learns moves at the following levels: ${moves}`;
     }).catch(function(err) {
         console.log(err);
-        return `No pokemon found by name ${utils.capitalize(pokemon)} in game "${genFilter}"`;
+        return `No pokemon found by that name in game "${genFilter}"`;
     });
 }
 
