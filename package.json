@@ -4,7 +4,7 @@
   "description": "A simple bot to help out with some ironmon run info over at NumotTheNummy's channel.",
   "main": "bot.js",
   "scripts": {
-    "start": "node runbot.js",
+    "start": "NODE_PATH=$(pwd) node runbot.js",
     "test": "node tester.js",
     "mocha": "NODE_PATH=$(pwd) mocha",
     "build-gen-index": "node nubot/gen/create_gen_index.js",
