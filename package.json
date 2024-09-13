@@ -23,7 +23,7 @@
     "stevebot": "file:../stevebot",
     "string-similarity": "^4.0.3",
     "tmi": "^2.0.0",
-    "tmi.js": "^1.5.0"
+    "tmi.js": "^1.8.5"
   },
   "engines": {
     "node": "8.x"

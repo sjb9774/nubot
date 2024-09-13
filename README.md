@@ -40,3 +40,9 @@ Testing
     * `CLU_USERNAME` defaults to `"CLI"` but can be set to any value; most often used to mimic broadcaster privileges by matching the channel name
     * `CLI_CHANNEL` defaults to an arbitrary value of `"#CLI"`, otherwise can be used to get channel-specific information to in combination with `CLI_USERNAME` to mimic broadcaster privileges
       * Note that with default values, this will give you broadcaster privileges for your commands
+
+
+Run against actual channel:
+```
+OAUTH_TOKEN=<TOKEN HERE> BOT_USERNAME=bigstevebot CHANNEL_NAME='["numotthenummy"]' NODE_PATH=$(pwd) npm start
+```
