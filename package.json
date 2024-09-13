@@ -5,7 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "start": "NODE_PATH=$(pwd) node runbot.js",
-    "test": "node tester.js",
+    "test": "NODE_PATH=$(pwd) node tester.js",
     "mocha": "NODE_PATH=$(pwd) mocha",
     "build-gen-index": "node nubot/gen/create_gen_index.js",
     "build-matchup-index": "node build_matchup_index.js"
@@ -26,7 +26,7 @@
     "tmi.js": "^1.8.5"
   },
   "engines": {
-    "node": "8.x"
+    "node": "18.7.0"
   },
   "repository": {
     "url": "https://glitch.com/edit/#!/classy-wood-lady"
